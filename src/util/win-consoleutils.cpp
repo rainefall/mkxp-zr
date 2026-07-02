@@ -7,9 +7,15 @@
 // Extended error information can be received via GetLastError().
 bool setupWindowsConsole()
 {
-    if (!AllocConsole())
-        return false;
-        
+    // If our parent already has a console
+    // attach to it instead of creating a new one.
+    if (!AttachConsole(ATTACH_PARENT_PROCESS))
+    {
+        // No parent console, so create our own.
+        if (!AllocConsole())
+            return false;
+    }
+
     const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
     return (handle != NULL && handle != INVALID_HANDLE_VALUE);
