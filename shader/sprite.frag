@@ -65,6 +65,20 @@ vec3 blendSubtract(vec3 base, vec3 blend, float opacity) {
     return (blendSubtract(base, blend) * opacity + base * (1.0 - opacity));
 }
 
+// Multiply
+float blendMultiply(float base, float blend) {
+    return min(base*blend,1.0);
+}
+
+vec3 blendMultiply(vec3 base, vec3 blend) {
+    return min(base*blend,vec3(1.0));
+}
+
+vec3 blendMultiply(vec3 base, vec3 blend, float opacity) {
+    return (blendMultiply(base, blend) * opacity + base * (1.0 - opacity));
+}
+
+
 // = = = = = = = = = = =
 
 void main()
@@ -80,6 +94,9 @@ void main()
         }
         else if (patternBlendType == 2) {
             frag.rgb = blendSubtract(frag.rgb, pattfrag.rgb, pattfrag.a * patternOpacity);
+        }
+        else if (patternBlendType == 3) {
+            frag.rgb = blendMultiply(frag.rgb, pattfrag.rgb, pattfrag.a * patternOpacity);
         }
         else {
             frag.rgb = blendNormal(frag.rgb, pattfrag.rgb, pattfrag.a * patternOpacity);
