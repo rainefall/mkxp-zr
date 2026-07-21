@@ -95,7 +95,7 @@ void GLBlendMode::apply(const BlendType &value) {
 
   case BlendMultiply:
     gl.BlendEquation(GL_FUNC_ADD);
-    gl.BlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+    gl.BlendFuncSeparate(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     break;
   }
 }
