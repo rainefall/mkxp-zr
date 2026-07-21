@@ -779,9 +779,8 @@ void Sprite::setZoomX(float value)
     if (p->realZoomX == value)
         return;
     
-    // RGSS lets you set the zoom below 0, but it doesn't render it
     p->realZoomX = value;
-    p->trans.setScale(Vec2(std::max(value, 0.0f), std::max(getZoomY(), 0.0f)));
+    p->trans.setScale(Vec2(value, getZoomY()));
     
     if (p->wave.active)
         p->wave.dirty = true;
@@ -794,8 +793,7 @@ void Sprite::setZoomY(float value)
     if (p->realZoomY == value)
         return;
     
-    // RGSS lets you set the zoom below 0, but it doesn't render it
-    p->trans.setScale(Vec2(std::max(getZoomX(), 0.0f), std::max(value, 0.0f)));
+    p->trans.setScale(Vec2(getZoomX(), value));
     p->bushDirty = true;
         
     p->realZoomY = value;
